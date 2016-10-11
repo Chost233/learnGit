@@ -13,8 +13,8 @@ public class Texas {
                 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,
                 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45,
                 46, 47, 48, 49, 50, 51, 52};//1~13:spade 14~26:diamond 27~39:heart 40~52:club
-        int[] poketcard1 = new int[2];
-        int[] poketcard2 = new int[2];
+        int[] poketcard1 = new int[2];      //底牌1
+        int[] poketcard2 = new int[2];      //底牌2
 
         out.println("输入规范\"花色|点值（两位）\"，如：红心8 输入样式应为 \"heart08\" ");
         int[] common = {1,2,3,4,5};                           //公共牌预设(注释此行，取消后面的注释，使用效果更佳)
