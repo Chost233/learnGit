@@ -17,8 +17,8 @@ public class Texas {
         int[] poketcard2 = new int[2];
 
         out.println("输入规范\"花色|点值（两位）\"，如：红心8 输入样式应为 \"heart08\" ");
-//        int[] common = {1,2,3,4,26};                           //公共牌预设
-        Scanner input = new Scanner(System.in);                //公共牌键盘输入
+        int[] common = {1,2,3,4,5};                           //公共牌预设(注释此行，取消后面的注释，使用效果更佳)
+        /*Scanner input = new Scanner(System.in);                //公共牌键盘输入(多动手益脑)
         int[] common = new int[5];
         for (int i = 1;i<=5;i++){
             int j = i-1;
@@ -52,14 +52,15 @@ public class Texas {
                 i = j;
             }
 //            System.out.println(common[i-1]);
-        }
-        out.println("底牌为：");
+        }*/
+
+        out.println("公共牌为：");                                  //公共牌打印
         for(int i=0;i<=4;i++){
             Poker p = new Poker(common[i]);
 //            System.out.println(common[i]);
             p.putout();
         }
-        while(true){
+        while(true){                                              //随机选择两套底牌
             poketcard1[0] = (int) Math.round(Math.random() * 51) + 1;
             int j = 0;
             for(int i = 0;i <5;i++){
@@ -107,12 +108,12 @@ public class Texas {
         p = new Poker(poketcard2[1]);
         p.putout();*/
 
-        /*poketcard1[0] = 7;             //底牌预设(注释后随机)
-        poketcard1[1] = 25;            //
-        poketcard2[0] = 9;             //
+        /*poketcard1[0] = 7;             //底牌预设(注释后为随机底牌)
+        poketcard1[1] = 25;              //
+        poketcard2[0] = 9;               //
         poketcard2[1] = 13;*/            //
 
-        System.out.println("牌组一为：");
+        System.out.println("牌组一为：");//底牌打印
         Poker p1 = new Poker(poketcard1[0]);
         p1.putout();
         p1 = new Poker(poketcard1[1]);
@@ -123,12 +124,12 @@ public class Texas {
         p2 = new Poker(poketcard2[1]);
         p2.putout();
 
-        Style style1 = new Style(common,poketcard1);
+        Style style1 = new Style(common,poketcard1);//牌型判断，类在第314行
         Style style2 = new Style(common,poketcard2);
-        long poker1 = 0;
+        long poker1 = 0;                            //牌的分值(自己定义的分值，便于比较)
         long poker2 = 0;
 
-        switch (compare(style1.royalflush,style2.royalflush)){
+        switch (compare(style1.royalflush,style2.royalflush)){//牌型比较加计算分值
             case 1:
                 poker1 = poker1 + 512;
                 break;
@@ -242,7 +243,7 @@ public class Texas {
         }
     }
 
-    static int compare(boolean a,boolean b){
+    static int compare(boolean a,boolean b){                    //牌型比较静态方法
         if(a ==true && b == false){
             return  1;
         }
@@ -313,24 +314,24 @@ public class Texas {
 class Style{               //检验牌型
     boolean royalflush = false;                //皇家同花顺
     boolean straightflush = false;             //同花顺
-    int straightflush1 = 0;
+    int straightflush1 = 0;                    //同花顺最大牌点数
     boolean four = false;                      //四条
-    int four1 = 0;
+    int four1 = 0;                             //四条最大牌点数
     boolean fullhouse = false;                 //葫芦
-    int fullhouse1 = 0;
-    int fullhouse2 = 0;
+    int fullhouse1 = 0;                        //三张牌的点数
+    int fullhouse2 = 0;                        //两张牌的点数
     boolean flush = false;                     //同花
-    int flush1 = 0;
+    int flush1 = 0;                            //最大牌点数
     boolean straight = false;                  //顺子
-    int straight1 = 0;
+    int straight1 = 0;                         //最大牌点数
     boolean three = false;                     //三条
-    int three1 = 0;
+    int three1 = 0;                            //点数
     boolean twopair = false;                   //两对
-    int twopair1 = 0;
+    int twopair1 = 0;                          //点数
     boolean onepair = false;                   //一对
-    int onepair1 = 0;
+    int onepair1 = 0;                          //点数
     boolean high = false;                      //高牌
-    int high1 = 0;
+    int high1 = 0;                             //最大牌点数
 
     Style(int[] a,int[] b) {                   //判断牌型
         int[] c = new int[7];
@@ -339,7 +340,7 @@ class Style{               //检验牌型
         }
         c[5] = b[0];
         c[6] = b[1];
-        for (int i = 0; i < 7; i++) {                        //皇家同花顺
+        for (int i = 0; i < 7; i++) {                        //皇家同花顺判断
             if (c[i] == 1) {
                 for (int j = 0; j < 7; j++) {
                     if (c[j] == 10) {
@@ -428,7 +429,7 @@ class Style{               //检验牌型
             }
         }
 
-        for (int i = 0; i < 7; i++) {                             //同花顺
+        for (int i = 0; i < 7; i++) {                             //同花顺判断
             if (c[i] >= 2 && c[i] <= 10) {
                 for (int j = 0; j < 7; j++) {
                     if (c[j] == c[i] + 1) {
@@ -520,7 +521,7 @@ class Style{               //检验牌型
             }
         }
 
-        for (int i = 0; i < 7; i++) {                       ////四条
+        for (int i = 0; i < 7; i++) {                       //四条判断
             if (c[i] >= 1 && c[i] <= 13) {
                 for (int j = 0; j < 7; j++) {
                     if (c[j] == c[i] + 13) {
@@ -588,7 +589,7 @@ class Style{               //检验牌型
             }
         }
 
-        for (int i = 0; i < 7; i++) {                       //葫芦
+        for (int i = 0; i < 7; i++) {                       //葫芦判断
             if (c[i] >= 1 && c[i] <= 13) {
                 for (int j = 0; j < 7; j++) {
                     if (c[j] == c[i] + 13) {
@@ -684,8 +685,8 @@ class Style{               //检验牌型
             }
         }
 
-        int ss,dd,hh,cc;                   //同花
-        ss = 0;dd = 0;hh = 0;cc = 0;
+        int ss,dd,hh,cc;                   //同花判断
+        ss = 0;dd = 0;hh = 0;cc = 0;       //各花色牌张数
         for(int i = 0; i<7;i++){
             if(c[i]>=1&&c[i]<=13){
                 ss++;
@@ -701,7 +702,7 @@ class Style{               //检验牌型
             }
             if(ss>=5||dd>=5||hh>=5||cc>=5){
                 flush = true;
-                if(ss>=5){
+                if(ss>=5){                //找最大点数
                     int ii = 0;
                     for(int j = 0;j<7;j++){
                         if(c[j]>=1&&c[j]<=13){
@@ -765,7 +766,7 @@ class Style{               //检验牌型
             }
         }
 
-        Poker pi,pj,pk,pl,pm;                //顺子
+        Poker pi,pj,pk,pl,pm;                //顺子判断
         for (int i = 0; i < 7; i++) {
             pi = new Poker(c[i]);
             if (pi.point >= 2 && pi.point <= 10) {
@@ -795,7 +796,7 @@ class Style{               //检验牌型
             }
         }
 
-        for (int i = 0; i < 7; i++) {                       //三条
+        for (int i = 0; i < 7; i++) {                       //三条判断
             if (c[i] >= 1 && c[i] <= 13) {
                 for (int j = 0; j < 7; j++) {
                     if (c[j] == c[i] + 13) {
@@ -847,7 +848,7 @@ class Style{               //检验牌型
             }
         }
 
-        for(int i = 0;i<7;i++){                       //两对||一对
+        for(int i = 0;i<7;i++){                       //两对||一对判断
             Poker pp = new Poker(c[i]);
             for(int j = 0;j<7;j++){
                 if(j!=i){
@@ -904,7 +905,7 @@ class Style{               //检验牌型
         System.out.println("三条"+three);
         System.out.println("两对"+twopair);
         System.out.println("一对"+onepair);
-        System.out.println("高牌"+high);*/
+        System.out.println("高牌"+high);   //结果打印便于调试*/
 
     }
 }
@@ -914,7 +915,7 @@ class Poker{//poker类
     String Point;
     int suit;
     int point;
-    Poker(int a){
+    Poker(int a){         //输入值转化为花色与点数
         if(a>=1&&a<=13){
             this.Suit = "spade    ";
             this.Point = String.valueOf(a);
@@ -955,5 +956,5 @@ class Poker{//poker类
     }
     public void putout(){
         out.println(this.Suit+this.Point);
-    }
+    } //打印花色和点数
 }
