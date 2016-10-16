@@ -17,6 +17,6 @@ public class Factorial {
         for(int i = input;i>0;i--){
             sum = sum.multiply(new BigInteger(String.valueOf(i)));
         }
-        System.out.println(sum.toString().substring(start,end));
+        System.out.println("结果为"+sum.toString().substring(start,end));
     }
 }
